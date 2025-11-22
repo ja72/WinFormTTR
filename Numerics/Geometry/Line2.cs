@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Numerics;
+using System.Security.Cryptography;
+
 using static System.Math;
 
 namespace JA.Numerics.Geometry
@@ -11,49 +13,35 @@ namespace JA.Numerics.Geometry
     {
         readonly (float a, float b, float c) data;
 
+        #region Factory
         public Line2(float a, float b, float c)
         {
-            data = (a, b, c);
+            data=(a, b, c);
         }
 
         public static Line2 Ray(Point2 origin, Vector2 direction)
-            => Join(origin, origin + direction);
+            => Join(origin, origin+direction);
         public static Line2 ThroughPointAwayFromOrigin(Point2 center)
-            => new Line2(-center.W*center.U, -center.W*center.V, center.U*center.U + center.V*center.V);
+            => new Line2(-center.W*center.U, -center.W*center.V, center.U*center.U+center.V*center.V);
 
         public static Line2 Join(Point2 point1, Point2 point2)
             => new Line2(
-                point1.V*point2.W - point1.W*point2.V,
-                point1.W*point2.U - point1.U*point2.W,
-                point1.U*point2.V - point1.V*point2.U);
+                point1.V*point2.W-point1.W*point2.V,
+                point1.W*point2.U-point1.U*point2.W,
+                point1.U*point2.V-point1.V*point2.U);
 
         public static Line2 Empty { get; } = new Line2(0, 0, 0);
         public static Line2 XAxis { get; } = new Line2(0, 1, 0);
         public static Line2 YAxis { get; } = new Line2(-1, 0, 0);
         public static Line2 Horizon { get; } = new Line2(0, 0, 1);
+        #endregion
 
+        #region Properties
         public float A => data.a;
         public float B => data.b;
-        public float C => data.c;
-
-        public void Deconstruct(out float a, out float b, out float c)
-        {
-            a = data.a;
-            b = data.b;
-            c = data.c;
-        }
-        public void Deconstruct(out float[] coefficients)
-        {
-            coefficients = new float[] {
-                data.a,
-                data.b,
-                data.c,
-            };
-        }
-
+        public float C => data.c; 
         [Browsable(false)]
         public (float a, float b, float c) Coords => data;
-
         [Browsable(false)]
         public bool IsFinite => WeightSqr > 0;
         [Browsable(false)]
@@ -62,6 +50,25 @@ namespace JA.Numerics.Geometry
         public float WeightSqr => data.a*data.a + data.b*data.b;
         [Browsable(false)]
         public float Weight => (float)Sqrt(WeightSqr);
+        #endregion
+
+        #region Conversions
+        public void Deconstruct(out float a, out float b, out float c)
+        {
+            a=data.a;
+            b=data.b;
+            c=data.c;
+        }
+        public void Deconstruct(out float[] coefficients)
+        {
+            coefficients=new float[] {
+                data.a,
+                data.b,
+                data.c,
+            };
+        } 
+        #endregion
+
 
         public bool IsCoincident(Line2 line)
         {
@@ -82,6 +89,7 @@ namespace JA.Numerics.Geometry
             var w = Weight;
             return new Line2(data.a/w, data.b/w, data.c/w);
         }
+
         #region Geometry
 
         public Line2 ParallelThrough(Point2 point)

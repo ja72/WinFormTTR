@@ -240,7 +240,13 @@ namespace JA.UI
                 canvas.DrawCircle(diagCircle);
                 canvas.Stroke.DashStyle = DashStyle.Solid;
 
-                if( circle.Intersect(diagCircle,  out var intersections))
+                if( circle.CommonLine(diagCircle, out var line))
+                {
+                    canvas.Stroke.Color = Color.Lime;
+                    canvas.DrawLine(line);
+                }
+
+                if ( circle.Intersect(diagCircle,  out var intersections))
                 {
                     canvas.Stroke.Color = Color.LimeGreen;
                     foreach (var ip in intersections)

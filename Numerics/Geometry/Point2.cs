@@ -53,13 +53,18 @@ namespace JA.Numerics.Geometry
         public Vector2 AsVectorFrom(Point2 origin) => origin.VectorTo(this);
         public Point2 Normalized() => Origin + AsVector();
 
-        public bool IsCoincident(Point2 point)
-            => point.data.w*data.x == data.w*point.data.x
-            && point.data.w*data.y == data.w*point.data.y;
-
         public bool IsCoincident(Line2 line)
             => Dot(this, line) == 0;
 
+        public bool IsCoincident(Point2 other)
+            => AsVector().Equals(other.AsVector());
+        public bool IsCoincident(Point2 other, float tolerance)
+        {
+            var P = AsVector();
+            var Q = other.AsVector();
+            return Math.Abs(P.X - Q.X) <= tolerance
+                && Math.Abs(P.Y - Q.Y) <= tolerance;
+        }
         public Vector2 VectorTo(Point2 target)
             => Difference(target, this);
 

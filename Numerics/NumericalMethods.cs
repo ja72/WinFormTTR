@@ -15,6 +15,9 @@ namespace JA.Numerics
         public static int MaxIterations { get; } = 512;
         public static float LooseTolerance { get; } = 1e-6f;
 
+        public static float UlpFloat { get; } = 1f/8388608;             //2^-23
+        public static double UlpDouble { get; } = 1d/2251799813685248L; //2^-51
+
         #region Single
         public static bool GaussPointIteration(this Func<float, float> f, float x_init, float tol, out float x)
         {
