@@ -38,12 +38,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Krypton.Navigator">
-      <HintPath>..\..\..\GitHub\Krypton\Standard-Toolkit\Bin\Release\net48\Krypton.Navigator.dll</HintPath>
-    </Reference>
-    <Reference Include="Krypton.Toolkit">
-      <HintPath>..\..\..\GitHub\Krypton\Standard-Toolkit\Bin\Release\net48\Krypton.Toolkit.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -75,11 +69,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\GeometryForm.resx">
       <DependentUpon>GeometryForm.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Krypton.Navigator">
+      <Version>95.25.10.293</Version>
+    </PackageReference>
+    <PackageReference Include="Krypton.Toolkit">
+      <Version>95.25.10.293</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
