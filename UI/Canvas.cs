@@ -98,10 +98,8 @@ namespace JA.UI
         }
         #endregion
     }
-    public sealed class Canvas : Frame
+    public class Canvas : Frame
     {
-        public Canvas(Control target, PaintEventArgs ev, float scale = 48)
-            : this(target, ev.Graphics, scale) { }
         public Canvas(Control target, Graphics graphics, float scale = 48)
             : base(target, scale) 
         {

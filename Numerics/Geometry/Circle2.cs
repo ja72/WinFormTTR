@@ -55,6 +55,10 @@ namespace JA.Numerics.Geometry
             delta = Geometry.Polar(Radius, θ);
             return Center + delta;
         }
+        public Point2 GetClosestPoint(Circle2 circle)
+        {
+            return GetClosestPoint(circle.Center);
+        }
 
         public Point2 GetClosestPoint(Line2 line)
             => GetClosestPoint(line.GetClosestPoint(Center));
