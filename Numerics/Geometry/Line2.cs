@@ -69,7 +69,6 @@ namespace JA.Numerics.Geometry
         } 
         #endregion
 
-
         public bool IsCoincident(Line2 line)
         {
             float w1 = Weight, w2 = line.Weight;
@@ -290,13 +289,13 @@ namespace JA.Numerics.Geometry
             }
             if (data.b != 0)
             {
-                text += $" + {b_str}*y";
+                text += $"+{b_str}*y";
             }
             if (data.c != 0)
             {
-                text += $" + {c_str}";
+                text += $"+{c_str}";
             }
-            return text + " = 0";
+            return text + "=0";
         }
         #endregion
 

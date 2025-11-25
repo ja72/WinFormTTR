@@ -163,7 +163,7 @@ namespace JA.Numerics.Geometry
         {
             var x_str = AsVector().X.ToString(formatting, provider);
             var y_str = AsVector().Y.ToString(formatting, provider);
-            return $"Point(x={x_str}, y={y_str})";
+            return $"Point({x_str},{y_str})";
         }
         public string ToString(string formatting)
             => ToString(formatting, null);

@@ -73,15 +73,17 @@ namespace JA.UI
     public class ExampleTTR : CanvasInteraction
     {
         Point2 apex;
+        Point2 P1;
+        Point2 P2;
         public ExampleTTR(PictureBox control) : base(control, 32f)
         {
             apex=Point2.Origin;
+            P1 = apex + 3*Vector2.UnitX;
+            P2 = apex + 2*Vector2.One;
         }
 
         protected override void OnPaint()
         {
-            var P1 = apex + 3*Vector2.UnitX;
-            var P2 = apex + 2*Vector2.One;
             float radius = 1;
 
             Stroke.Color=Color.White;
@@ -89,26 +91,28 @@ namespace JA.UI
             var side1 = Line2.Join(apex, P1);
             var side2 = Line2.Join(apex, P2);
 
-            Stroke.Color=Color.DarkGray;
+            Stroke.Color=Color.DarkGoldenrod;
+            Stroke.DashStyle=DashStyle.Dash;
             canvas.DrawLine(
                 side1.GetPointAlong(-5),
                 side1.GetPointAlong(5));
             canvas.DrawLine(
                 side2.GetPointAlong(-5),
                 side2.GetPointAlong(5));
-
+            Stroke.DashStyle=DashStyle.Solid;
             canvas.DrawText(
-                "(0,0)", apex, ContentAlignment.BottomLeft);
+                $"{apex}", apex, ContentAlignment.BottomLeft);
             canvas.DrawText(
-                "(3,0)", P1, ContentAlignment.BottomRight);
+                $"{P1}", P1, ContentAlignment.BottomRight);
             canvas.DrawText(
-                "(2,2)", P2, ContentAlignment.TopRight);
-            //Canvas.FillPoint(GetPoint(apex));
+                $"{P2}", P2, ContentAlignment.TopRight);
             canvas.FillPoint(P1);
             canvas.FillPoint(P2);
             Stroke.Color=Color.Cyan;
-            canvas.DrawLineArrow(apex, P1, 6);
-            canvas.DrawLineArrow(apex, P2, 6);
+            canvas.DrawLineArrow(apex, (P1-apex).Unit(), 6);
+            canvas.DrawLineArrow(apex, (P2-apex).Unit(), 6);
+            Fill.Color=Color.White;
+            canvas.FillPoint(apex);
 
             Fill.Color=Color.Yellow;
 
@@ -132,7 +136,11 @@ namespace JA.UI
         {
             if (buttons==MouseButtons.Left)
             {
-                apex=point;
+                P1 = point;
+            }
+            if(buttons==MouseButtons.Right)
+            {
+                P2 = point;
             }
             base.OnMouseDrag(buttons, point);
         }

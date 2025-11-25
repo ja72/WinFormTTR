@@ -57,6 +57,9 @@ namespace JA.Numerics.Geometry
 
             return Point2.Meet(offset1, offset2);
         }
+
+        public static Vector2 Unit(this Vector2 vector)
+            => Vector2.Normalize(vector);
     }
 
 }

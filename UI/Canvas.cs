@@ -228,6 +228,8 @@ namespace JA.UI
             => Graphics.DrawArcBetweenTwoPoints(GetPixel(a), GetPixel(b), Scale*radius, flip);
         public void DrawArcFromCenter(Point2 center, Point2 point, float sweepAngleDegrees)
             => Graphics.DrawArcFromCenter(GetPixel(center), GetPixel(point), sweepAngleDegrees);
+        public void DrawLineArrow(Point2 from, Vector2 delta, float arrowSize, bool bothSides = false)
+            => Graphics.DrawLineArrow(GetPixel(from), GetPixel(from + delta), arrowSize, bothSides);
         public void DrawLineArrow(Point2 from, Point2 to, float arrowSize, bool bothSides = false)
             => Graphics.DrawLineArrow(GetPixel(from), GetPixel(to), arrowSize, bothSides);
         public void DrawLineArrow(Point2 from, float offset_x, float offset_y, float arrowSize, bool bothSides = false)
